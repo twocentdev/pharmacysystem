@@ -44,4 +44,21 @@ public enum MedicineEnum {
         }
         return false;
     }
+
+    /**
+     * This method returns a printable String that contains MedicineEnum.values.
+     *
+     * @return the printable String.
+     */
+    public static String valuesToString() {
+        return String.format(
+            "[%s, %s, %s]",
+            MedicineEnum.PAINKILLER.getMedicineName(),
+            MedicineEnum.ANALEPTIC.getMedicineName(),
+            MedicineEnum.ANESTHETIC.getMedicineName(),
+            MedicineEnum.ANTACID.getMedicineName(),
+            MedicineEnum.ANTIDEPRESSANT.getMedicineName(),
+            MedicineEnum.ANTIBIOTIC.getMedicineName()
+        );
+    }
 }

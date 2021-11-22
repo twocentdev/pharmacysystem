@@ -36,4 +36,18 @@ public enum DistributorEnum {
         }
         return false;
     }
+
+    /**
+     * This method returns a printable String that contains DistributorEnum.values.
+     *
+     * @return the printable String.
+     */
+    public static String valuesToString() {
+        return String.format(
+            "[%s, %s, %s]",
+            DistributorEnum.COFARMA.getDistributorName(),
+            DistributorEnum.EMPSEPHAR.getDistributorName(),
+            DistributorEnum.CEMEFAR.getDistributorName()
+        );
+    }
 }
