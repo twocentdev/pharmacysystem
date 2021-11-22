@@ -3,7 +3,7 @@ package org.unir.core;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.Locale;
+import java.util.Arrays;
 
 public class MedicineTypeTest {
 
@@ -72,5 +72,17 @@ public class MedicineTypeTest {
             IllegalArgumentException.class,
             () -> MedicineEnum.valueOf("NoMedicine")
         );
+    }
+
+    /**
+     * This tests shows how to check if a given String has a value in MedicineEnum.values(), avoiding NullPointerExcetion.
+     */
+    @Test
+    public void checkIfMedicineEnumExistsWithoutNullPointerException () {
+        Assertions.assertTrue(MedicineEnum.exists("painkiller"));
+        Assertions.assertTrue(MedicineEnum.exists("Painkiller"));
+        Assertions.assertTrue(MedicineEnum.exists("PAINKILLER"));
+        Assertions.assertTrue(MedicineEnum.exists("paiNkiLLer"));
+        Assertions.assertFalse(MedicineEnum.exists("other"));
     }
 }
