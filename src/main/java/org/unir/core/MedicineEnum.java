@@ -4,16 +4,16 @@ public enum MedicineEnum {
     PAINKILLER(0, "Painkiller"),
     ANALEPTIC (1, "Analeptic"),
     ANESTHETIC(2, "Anesthetic"),
-    ANTIACID(3, "Antiacid"),
+    ANTACID(3, "Antacid"),
     ANTIDEPRESSANT(4, "Antidepressant"),
     ANTIBIOTIC(5, "Antibiotic");
 
-    private String medicineName;
-    private Integer medicineID;
+    private final String medicineName;
+    private final Integer medicineID;
 
-    private MedicineEnum(Integer medicineID, String medicineName ) {
-        this.medicineName = medicineName;
-        this.medicineID = medicineID;
+    private MedicineEnum(Integer id, String name ) {
+        this.medicineID = id;
+        this.medicineName = name;
     }
 
     public Integer getMedicineID() {

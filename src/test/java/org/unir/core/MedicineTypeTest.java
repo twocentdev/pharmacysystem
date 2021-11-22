@@ -3,14 +3,19 @@ package org.unir.core;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Locale;
+
 public class MedicineTypeTest {
 
+    /**
+     * This is a basic test that shows if the basic construction and values work well.
+     */
     @Test
     public void getMedicineName () {
         MedicineEnum painkiller = MedicineEnum.PAINKILLER;
         MedicineEnum analeptic = MedicineEnum.ANALEPTIC;
         MedicineEnum anesthetic = MedicineEnum.ANESTHETIC;
-        MedicineEnum antiacid = MedicineEnum.ANTIACID;
+        MedicineEnum antiacid = MedicineEnum.ANTACID;
         MedicineEnum antidepressant = MedicineEnum.ANTIDEPRESSANT;
         MedicineEnum antibiotic = MedicineEnum.ANTIBIOTIC;
 
@@ -24,8 +29,48 @@ public class MedicineTypeTest {
         Assertions.assertEquals(MedicineEnum.PAINKILLER.getMedicineName(), painkiller.getMedicineName());
         Assertions.assertEquals(MedicineEnum.ANALEPTIC.getMedicineName(), analeptic.getMedicineName());
         Assertions.assertEquals(MedicineEnum.ANESTHETIC.getMedicineName(), anesthetic.getMedicineName());
-        Assertions.assertEquals(MedicineEnum.ANTIACID.getMedicineName(), antiacid.getMedicineName());
+        Assertions.assertEquals(MedicineEnum.ANTACID.getMedicineName(), antiacid.getMedicineName());
         Assertions.assertEquals(MedicineEnum.ANTIDEPRESSANT.getMedicineName(), antidepressant.getMedicineName());
         Assertions.assertEquals(MedicineEnum.ANTIBIOTIC.getMedicineName(), antibiotic.getMedicineName());
+    }
+
+    /**
+     * This test shows the proper way to 'build' a MedicineEnum taking a text as an input.
+     * In order to build properly a MedicineEnum you can use "String".toUpperCase();
+     */
+    @Test
+    public void buildByText() {
+        MedicineEnum medicine = MedicineEnum.valueOf("PAINKILLER");
+        Assertions.assertEquals(MedicineEnum.PAINKILLER, medicine);
+        medicine = MedicineEnum.valueOf("ANTIBIOTIC");
+        Assertions.assertEquals(MedicineEnum.ANTIBIOTIC, medicine);
+        medicine = MedicineEnum.valueOf("antacid".toUpperCase());
+        Assertions.assertEquals(MedicineEnum.ANTACID, medicine);
+        medicine = MedicineEnum.valueOf("Antibiotic".toUpperCase());
+        Assertions.assertEquals(MedicineEnum.ANTIBIOTIC, medicine);
+
+        Assertions.assertThrows(
+            IllegalArgumentException.class,
+            () -> MedicineEnum.valueOf("Painkiller")
+        );
+        Assertions.assertThrows(
+            IllegalArgumentException.class,
+            () -> MedicineEnum.valueOf("PAINKILLER".toLowerCase())
+        );Assertions.assertThrows(
+            IllegalArgumentException.class,
+            () -> MedicineEnum.valueOf("painkiller")
+        );
+        Assertions.assertThrows(
+            NullPointerException.class,
+            () -> MedicineEnum.valueOf(null)
+        );
+        Assertions.assertThrows(
+            IllegalArgumentException.class,
+            () -> MedicineEnum.valueOf("")
+        );
+        Assertions.assertThrows(
+            IllegalArgumentException.class,
+            () -> MedicineEnum.valueOf("NoMedicine")
+        );
     }
 }
