@@ -3,9 +3,7 @@ package org.unir.core;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-
-public class MedicineTypeTest {
+public class MedicineEnumTest {
 
     /**
      * This is a basic test that shows if the basic construction and values work well.

@@ -14,8 +14,8 @@ public enum MedicineEnum {
     ANTIDEPRESSANT(4, "Antidepressant"),
     ANTIBIOTIC(5, "Antibiotic");
 
-    private final String medicineName;
     private final Integer medicineID;
+    private final String medicineName;
 
     private MedicineEnum(Integer id, String name ) {
         this.medicineID = id;
