@@ -17,9 +17,9 @@ public class DistributorEnumTest {
         DistributorEnum empsephar = DistributorEnum.EMPSEPHAR;
         DistributorEnum cemefar = DistributorEnum.CEMEFAR;
 
-        Assertions.assertEquals(new Integer(0), cofarma.getDistributorID());
-        Assertions.assertEquals(new Integer(1), empsephar.getDistributorID());
-        Assertions.assertEquals(new Integer(2), cemefar.getDistributorID());
+        Assertions.assertEquals(0, cofarma.getDistributorID());
+        Assertions.assertEquals(1, empsephar.getDistributorID());
+        Assertions.assertEquals(2, cemefar.getDistributorID());
 
         Assertions.assertEquals(DistributorEnum.COFARMA.getDistributorName(), cofarma.getDistributorName());
         Assertions.assertEquals(DistributorEnum.EMPSEPHAR.getDistributorName(), empsephar.getDistributorName());
@@ -32,14 +32,10 @@ public class DistributorEnumTest {
      */
     @Test
     public void buildByText() {
-        DistributorEnum distributor = DistributorEnum.valueOf("COFARMA");
-        Assertions.assertEquals(DistributorEnum.COFARMA, distributor);
-        distributor = DistributorEnum.valueOf("EMPSEPHAR");
-        Assertions.assertEquals(DistributorEnum.EMPSEPHAR, distributor);
-        distributor = DistributorEnum.valueOf("cofarma".toUpperCase());
-        Assertions.assertEquals(DistributorEnum.COFARMA, distributor);
-        distributor = DistributorEnum.valueOf("Cofarma".toUpperCase());
-        Assertions.assertEquals(DistributorEnum.COFARMA, distributor);
+        Assertions.assertEquals(DistributorEnum.COFARMA, DistributorEnum.valueOf("COFARMA"));
+        Assertions.assertEquals(DistributorEnum.EMPSEPHAR, DistributorEnum.valueOf("EMPSEPHAR"));
+        Assertions.assertEquals(DistributorEnum.COFARMA, DistributorEnum.valueOf("cofarma".toUpperCase()));
+        Assertions.assertEquals(DistributorEnum.COFARMA, DistributorEnum.valueOf("Cofarma".toUpperCase()));
 
         Assertions.assertThrows(
             IllegalArgumentException.class,

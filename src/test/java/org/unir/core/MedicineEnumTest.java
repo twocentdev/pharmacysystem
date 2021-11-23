@@ -17,12 +17,12 @@ public class MedicineEnumTest {
         MedicineEnum antidepressant = MedicineEnum.ANTIDEPRESSANT;
         MedicineEnum antibiotic = MedicineEnum.ANTIBIOTIC;
 
-        Assertions.assertEquals(new Integer(0), painkiller.getMedicineID());
-        Assertions.assertEquals(new Integer(1), analeptic.getMedicineID());
-        Assertions.assertEquals(new Integer(2), anesthetic.getMedicineID());
-        Assertions.assertEquals(new Integer(3), antiacid.getMedicineID());
-        Assertions.assertEquals(new Integer(4), antidepressant.getMedicineID());
-        Assertions.assertEquals(new Integer(5), antibiotic.getMedicineID());
+        Assertions.assertEquals(0, painkiller.getMedicineID());
+        Assertions.assertEquals(1, analeptic.getMedicineID());
+        Assertions.assertEquals(2, anesthetic.getMedicineID());
+        Assertions.assertEquals(3, antiacid.getMedicineID());
+        Assertions.assertEquals(4, antidepressant.getMedicineID());
+        Assertions.assertEquals(5, antibiotic.getMedicineID());
 
         Assertions.assertEquals(MedicineEnum.PAINKILLER.getMedicineName(), painkiller.getMedicineName());
         Assertions.assertEquals(MedicineEnum.ANALEPTIC.getMedicineName(), analeptic.getMedicineName());
@@ -38,14 +38,10 @@ public class MedicineEnumTest {
      */
     @Test
     public void buildByText() {
-        MedicineEnum medicine = MedicineEnum.valueOf("PAINKILLER");
-        Assertions.assertEquals(MedicineEnum.PAINKILLER, medicine);
-        medicine = MedicineEnum.valueOf("ANTIBIOTIC");
-        Assertions.assertEquals(MedicineEnum.ANTIBIOTIC, medicine);
-        medicine = MedicineEnum.valueOf("antacid".toUpperCase());
-        Assertions.assertEquals(MedicineEnum.ANTACID, medicine);
-        medicine = MedicineEnum.valueOf("Antibiotic".toUpperCase());
-        Assertions.assertEquals(MedicineEnum.ANTIBIOTIC, medicine);
+        Assertions.assertEquals(MedicineEnum.PAINKILLER, MedicineEnum.valueOf("PAINKILLER"));
+        Assertions.assertEquals(MedicineEnum.ANTIBIOTIC, MedicineEnum.valueOf("ANTIBIOTIC"));
+        Assertions.assertEquals(MedicineEnum.ANTACID, MedicineEnum.valueOf("antacid".toUpperCase()));
+        Assertions.assertEquals(MedicineEnum.ANTIBIOTIC, MedicineEnum.valueOf("Antibiotic".toUpperCase()));
 
         Assertions.assertThrows(
             IllegalArgumentException.class,
