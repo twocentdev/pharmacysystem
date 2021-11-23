@@ -1,4 +1,9 @@
 #
+# MACOS files
+#
+.DS_Store
+
+#
 # Standard Maven .gitignore
 #
 target/
