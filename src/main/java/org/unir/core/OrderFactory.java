@@ -2,6 +2,7 @@ package org.unir.core;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * This class is responsible for validating new order requests, creating them and 'saving' to a collection.
@@ -25,7 +26,7 @@ public final class OrderFactory {
      *
      * @return the new order.
      */
-    public Order create (String name, String type, Integer amount, String distributor, String[] directions)
+    public Order create (String name, String type, Integer amount, String distributor, List<String> directions)
         throws IllegalArgumentException {
         if (name == null || name.isEmpty() || !name.matches("[a-zA-Z0-9]+")) {
             throw new IllegalArgumentException(String.format(
@@ -42,18 +43,18 @@ public final class OrderFactory {
         }
         if (amount == null || amount <= 0) {
             throw new IllegalArgumentException(String.format(
-                "Expected medicine amount <0, but got %d.",
+                "Expected medicine amount>0, but got %d.",
                 amount
             ));
         }
         if (distributor == null || distributor.isEmpty() || !DistributorEnum.exists(distributor)) {
             throw new IllegalArgumentException(String.format(
-                "Expected medicine distributor [%s], but got %s.",
+                "Expected medicine distributor %s, but got %s.",
                 DistributorEnum.valuesToString(),
                 distributor
             ));
         }
-        if (directions == null || directions.length == 0 ) {
+        if (directions == null || directions.size() == 0 ) {
             throw new IllegalArgumentException(String.format(
                 "Expected at least one (1) direction where the order should be delivered."
             ));
@@ -63,7 +64,7 @@ public final class OrderFactory {
             MedicineEnum.valueOf(type.toUpperCase()),
             amount,
             DistributorEnum.valueOf(distributor.toUpperCase()),
-            Arrays.asList(directions)
+            directions
         );
         OrderCollection.getInstance();
         OrderCollection.getCollection().add(order);
