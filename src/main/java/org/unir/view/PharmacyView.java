@@ -22,8 +22,8 @@ public class PharmacyView {
     private final String JLABEL_FIELD_AMOUNT = "Amount: ";
     private final String JLABEL_FIELD_DISTRIBUTOR = "Distributor: ";
     private final String JLABEL_FIELD_DIRECTIONS = "Directions: ";
-    private final String JLABEL_DIR_1 = "Avenida de la Piruleta, 5";
-    private final String JLABEL_DIR_2 = "Avenida de la Cruzcampo, 288";
+    private final String JLABEL_DIR_1 = "Calle de la Rosa 28";
+    private final String JLABEL_DIR_2 = "Calle Alcazabilla 3";
     private final int JTEXTFIELD_WIDTH = 15;
 
     public void initView () {
