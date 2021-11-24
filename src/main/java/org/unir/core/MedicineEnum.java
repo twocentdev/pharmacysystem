@@ -1,10 +1,5 @@
 package org.unir.core;
 
-import java.lang.reflect.Modifier;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
-
 public enum MedicineEnum {
 
     PAINKILLER(0, "Painkiller"),

@@ -1,7 +1,5 @@
 package org.unir.core;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -55,9 +53,7 @@ public final class OrderFactory {
             ));
         }
         if (directions == null || directions.size() == 0 ) {
-            throw new IllegalArgumentException(String.format(
-                "Expected at least one (1) direction where the order should be delivered."
-            ));
+            throw new IllegalArgumentException("Expected at least one (1) direction where the order should be delivered.");
         }
         Order order = new Order(
             name,
