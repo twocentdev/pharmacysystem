@@ -5,6 +5,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class OrderFactoryTest {
 
     private OrderFactory factory;
@@ -35,23 +38,23 @@ public class OrderFactoryTest {
         Order correctOrder;
         try {
             Assertions.assertTrue(MedicineEnum.exists("PAINKILLER"));
-            correctOrder = factory.create("sudorixina", "PAINKILLER", 1, "Cofarma", new String[] {"dir1", "dir2"});
+            correctOrder = factory.create("sudorixina", "PAINKILLER", 1, "Cofarma", Arrays.asList(new String[]{"dir1", "dir2"}));
             Assertions.assertNotNull(correctOrder);
-            correctOrder = factory.create("SUDORIZINA", "Painkiller", 2, "COFARMA", new String[] {"dir1"});
+            correctOrder = factory.create("SUDORIZINA", "Painkiller", 2, "COFARMA", Arrays.asList(new String[] {"dir1"}));
             Assertions.assertNotNull(correctOrder);
-            correctOrder = factory.create("123", "Anesthetic", 51234, "cOFarma", new String[] {"dir2"});
+            correctOrder = factory.create("123", "Anesthetic", 51234, "cOFarma", Arrays.asList(new String[] {"dir2"}));
             Assertions.assertNotNull(correctOrder);
-            correctOrder = factory.create("Sudorixina", "PAINKILLER", 16, "Empsephar", new String[] {"dir1"});
+            correctOrder = factory.create("Sudorixina", "PAINKILLER", 16, "Empsephar", Arrays.asList(new String[] {"dir1"}));
             Assertions.assertNotNull(correctOrder);
-            correctOrder = factory.create("Sudorixina123", "Antacid", 1, "EMPSEPHAR", new String[] {"dir1", "dir2"});
+            correctOrder = factory.create("Sudorixina123", "Antacid", 1, "EMPSEPHAR", Arrays.asList(new String[] {"dir1", "dir2"}));
             Assertions.assertNotNull(correctOrder);
-            correctOrder = factory.create("S", "ANTACID", 32, "empSEPHAR", new String[] {"dir2"});
+            correctOrder = factory.create("S", "ANTACID", 32, "empSEPHAR", Arrays.asList(new String[] {"dir2"}));
             Assertions.assertNotNull(correctOrder);
-            correctOrder = factory.create("s", "ANtacID", 25, "Cemefar", new String[] {"dir1", "dir2"});
+            correctOrder = factory.create("s", "ANtacID", 25, "Cemefar", Arrays.asList(new String[] {"dir1", "dir2"}));
             Assertions.assertNotNull(correctOrder);
-            correctOrder = factory.create("1", "PAINKILLER", 128, "CEMEFAR", new String[] {"dir2"});
+            correctOrder = factory.create("1", "PAINKILLER", 128, "CEMEFAR", Arrays.asList(new String[] {"dir2"}));
             Assertions.assertNotNull(correctOrder);
-            correctOrder = factory.create("Sa1", "PAINKILLER", 1, "cEMEfar", new String[] {"dir2"});
+            correctOrder = factory.create("Sa1", "PAINKILLER", 1, "cEMEfar", Arrays.asList(new String[] {"dir2"}));
             Assertions.assertNotNull(correctOrder);
         } catch (IllegalArgumentException e) {
             Assertions.fail("No exception was expected.");
@@ -65,17 +68,17 @@ public class OrderFactoryTest {
     public void validateOrderIncorrectMedicineName () {
         Assertions.assertThrows(
             IllegalArgumentException.class,
-            () -> factory.create(null, "PAINKILLER", 1, "Cofarma", new String[] {"dir1", "dir2"}),
+            () -> factory.create(null, "PAINKILLER", 1, "Cofarma", Arrays.asList(new String[] {"dir1", "dir2"})),
             "Expected factory.create() to throw an IllegalArgumentException."
         );
         Assertions.assertThrows(
             IllegalArgumentException.class,
-            () -> factory.create("", "PAINKILLER", 1, "Cofarma", new String[] {"dir1", "dir2"}),
+            () -> factory.create("", "PAINKILLER", 1, "Cofarma", Arrays.asList(new String[] {"dir1", "dir2"})),
             "Expected factory.create() to throw an IllegalArgumentException."
         );
         Assertions.assertThrows(
             IllegalArgumentException.class,
-            () -> factory.create("$", "PAINKILLER", 1, "Cofarma", new String[] {"dir1", "dir2"}),
+            () -> factory.create("$", "PAINKILLER", 1, "Cofarma", Arrays.asList(new String[] {"dir1", "dir2"})),
             "Expected factory.create() to throw an IllegalArgumentException."
         );
     }
@@ -87,17 +90,17 @@ public class OrderFactoryTest {
     public void validateOrderIncorrectMedicineType () {
         Assertions.assertThrows(
             IllegalArgumentException.class,
-            () -> factory.create("sudorixina", null, 1, "Cofarma", new String[] {"dir1", "dir2"}),
+            () -> factory.create("sudorixina", null, 1, "Cofarma", Arrays.asList(new String[] {"dir1", "dir2"})),
             "Expected factory.create() to throw an IllegalArgumentException."
         );
         Assertions.assertThrows(
             IllegalArgumentException.class,
-            () -> factory.create("sudorixina", "", 1, "Cofarma", new String[] {"dir1", "dir2"}),
+            () -> factory.create("sudorixina", "", 1, "Cofarma", Arrays.asList(new String[] {"dir1", "dir2"})),
             "Expected factory.create() to throw an IllegalArgumentException."
         );
         Assertions.assertThrows(
             IllegalArgumentException.class,
-            () -> factory.create("sudorixina", "nonExistingTypeOfMedicine", 1, "Cofarma", new String[] {"dir1", "dir2"}),
+            () -> factory.create("sudorixina", "nonExistingTypeOfMedicine", 1, "Cofarma", Arrays.asList(new String[] {"dir1", "dir2"})),
             "Expected factory.create() to throw an IllegalArgumentException."
         );
     }
@@ -109,17 +112,17 @@ public class OrderFactoryTest {
     public void validateOrderIncorrectAmount () {
         Assertions.assertThrows(
             IllegalArgumentException.class,
-            () -> factory.create("sudorixina", "PAINKILLER", null, "Cofarma", new String[] {"dir1", "dir2"}),
+            () -> factory.create("sudorixina", "PAINKILLER", null, "Cofarma", Arrays.asList(new String[] {"dir1", "dir2"})),
             "Expected factory.create() to throw an IllegalArgumentException."
         );
         Assertions.assertThrows(
             IllegalArgumentException.class,
-            () -> factory.create("sudorixina", "PAINKILLER", -1, "Cofarma", new String[] {"dir1", "dir2"}),
+            () -> factory.create("sudorixina", "PAINKILLER", -1, "Cofarma", Arrays.asList(new String[] {"dir1", "dir2"})),
             "Expected factory.create() to throw an IllegalArgumentException."
         );
         Assertions.assertThrows(
             IllegalArgumentException.class,
-            () -> factory.create("sudorixina", "PAINKILLER", 0, "Cofarma", new String[] {"dir1", "dir2"}),
+            () -> factory.create("sudorixina", "PAINKILLER", 0, "Cofarma", Arrays.asList(new String[] {"dir1", "dir2"})),
             "Expected factory.create() to throw an IllegalArgumentException."
         );
     }
@@ -131,17 +134,17 @@ public class OrderFactoryTest {
     public void validateOrderIncorrectDistributor () {
         Assertions.assertThrows(
             IllegalArgumentException.class,
-            () -> factory.create("sudorixina", "PAINKILLER", 1, null, new String[] {"dir1", "dir2"}),
+            () -> factory.create("sudorixina", "PAINKILLER", 1, null, Arrays.asList(new String[] {"dir1", "dir2"})),
             "Expected factory.create() to throw an IllegalArgumentException."
         );
         Assertions.assertThrows(
             IllegalArgumentException.class,
-            () -> factory.create("sudorixina", "PAINKILLER", 1, "", new String[] {"dir1", "dir2"}),
+            () -> factory.create("sudorixina", "PAINKILLER", 1, "", Arrays.asList(new String[] {"dir1", "dir2"})),
             "Expected factory.create() to throw an IllegalArgumentException."
         );
         Assertions.assertThrows(
             IllegalArgumentException.class,
-            () -> factory.create("sudorixina", "PAINKILLER", 1, "nonExistingDistributor", new String[] {"dir1", "dir2"}),
+            () -> factory.create("sudorixina", "PAINKILLER", 1, "nonExistingDistributor", Arrays.asList(new String[] {"dir1", "dir2"})),
             "Expected factory.create() to throw an IllegalArgumentException."
         );
     }
@@ -158,7 +161,7 @@ public class OrderFactoryTest {
         );
         Assertions.assertThrows(
             IllegalArgumentException.class,
-            () -> factory.create("sudorixina", "PAINKILLER", 1, "Cofarma", new String[] {}),
+            () -> factory.create("sudorixina", "PAINKILLER", 1, "Cofarma", Arrays.asList(new String[] {})),
             "Expected factory.create() to throw an IllegalArgumentException."
         );
     }
