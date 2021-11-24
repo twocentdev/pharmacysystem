@@ -1,5 +1,6 @@
 package org.unir.core;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -20,11 +21,11 @@ public final class OrderFactory {
      * @param type the medicine type (uses an enum).
      * @param amount the total amount of medicine units ordered.
      * @param distributor the company who is responsible for delivering the medicine.
-     * @param branch where the medicine should be delivered.
+     * @param directions where the medicine should be delivered.
      *
      * @return the new order.
      */
-    public Order create (String name, String type, Integer amount, String distributor, String branch)
+    public Order create (String name, String type, Integer amount, String distributor, String[] directions)
         throws IllegalArgumentException {
         if (name == null || name.isEmpty() || !name.matches("[a-zA-Z0-9]+")) {
             throw new IllegalArgumentException(String.format(
@@ -52,15 +53,17 @@ public final class OrderFactory {
                 distributor
             ));
         }
-        if (branch == null) {
-            throw new IllegalArgumentException("Expected branch, got null.");
+        if (directions == null || directions.length == 0 ) {
+            throw new IllegalArgumentException(String.format(
+                "Expected at least one (1) direction where the order should be delivered."
+            ));
         }
         Order order = new Order(
             name,
             MedicineEnum.valueOf(type.toUpperCase()),
             amount,
             DistributorEnum.valueOf(distributor.toUpperCase()),
-            branch
+            Arrays.asList(directions)
         );
         OrderCollection.getInstance();
         OrderCollection.getCollection().add(order);
