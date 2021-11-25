@@ -1,9 +1,6 @@
 package org.unir.view;
 
-import org.unir.core.DistributorEnum;
-import org.unir.core.MedicineEnum;
-import org.unir.core.Order;
-import org.unir.core.OrderFactory;
+import org.unir.core.*;
 import org.unir.util.Util;
 
 import java.util.ArrayList;
