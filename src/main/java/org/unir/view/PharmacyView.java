@@ -26,8 +26,11 @@ public class PharmacyView {
     private final String JLABEL_DIR_2 = "Calle Alcazabilla 3";
     private final int JTEXTFIELD_WIDTH = 15;
 
-    public void initView () {
-        JFrame frame = new JFrame(JFRAME_TITLE);
+    public static PharmacyView instance;
+    JFrame frame;
+
+    private void initView () {
+        frame = new JFrame(JFRAME_TITLE);
         JPanel panelMain = new JPanel();
         JPanel panelForm = new JPanel();
         JPanel panelNav = new JPanel();
@@ -117,17 +120,6 @@ public class PharmacyView {
             if (direction2.isSelected()) {
                 directions.add(direction2.getText());
             }
-            System.out.println("Submit button has been clicked.");
-            System.out.println("About to create an order:");
-            System.out.println(String.format(
-                "{name: %s, type: %s, amount: %d, distributor: %s, direction: %s}",
-                (textFieldName.getText() == null) ? null : textFieldName.getText(),
-                (fieldType.getSelectedItem() == null)? null : fieldType.getSelectedItem().toString(),
-                Util.parseInt(textFieldAmount.getText()),
-                (fieldDistributor.getSelection() == null)? null : fieldDistributor.getSelection().getActionCommand(),
-                directions
-            ));
-            //TODO
             OrderFactory factory = OrderFactory.getInstance();
             try {
                 Order order = factory.create(
@@ -163,11 +155,23 @@ public class PharmacyView {
             direction2.setSelected(false);
         });
         back.addActionListener( e -> {
-            MainView mainView = new MainView();
-            mainView.initView();
+            MainView mainView = MainView.getInstance();
+            mainView.setVisible(true);
             frame.setVisible(false);
         });
 
         frame.setVisible(true);
+    }
+
+    public static PharmacyView getInstance() {
+        if (instance == null) {
+            instance = new PharmacyView();
+            instance.initView();
+        }
+        return instance;
+    }
+
+    public void setVisible (boolean visible) {
+        this.frame.setVisible(visible);
     }
 }

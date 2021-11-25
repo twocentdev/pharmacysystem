@@ -14,7 +14,6 @@ public final class App {
      * @param args The arguments of the program.
      */
     public static void main(String[] args) {
-        MainView view = new MainView();
-        view.initView();
+        MainView view = MainView.getInstance();
     }
 }

@@ -40,7 +40,7 @@ public class Order {
 
     public String toString() {
         return String.format(
-            "{name: %s, type: %s, amount: %d, distributor: %s, branch: %s}",
+            "{name: %s, type: %s, amount: %d, distributor: %s, direction(s): %s}",
             this.name,
             this.type.getMedicineName(),
             this.amount,
