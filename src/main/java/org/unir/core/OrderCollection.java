@@ -5,7 +5,7 @@ import java.util.List;
 
 public final class OrderCollection {
 
-    public static OrderCollection instance;
+    private static OrderCollection instance;
     private final List<Order> collection;
 
     private OrderCollection (List<Order> collection) {

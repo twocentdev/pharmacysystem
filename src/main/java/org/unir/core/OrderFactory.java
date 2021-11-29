@@ -11,7 +11,7 @@ public final class OrderFactory {
     /**
      * The instance of the factory. See singleton pattern for more information.
      */
-    public static OrderFactory instance;
+    private static OrderFactory instance;
 
     /**
      * This method creates new instances of medicine orders, if all input parameters are valid, and save into the collection.

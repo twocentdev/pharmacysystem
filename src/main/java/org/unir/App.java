@@ -15,5 +15,6 @@ public final class App {
      */
     public static void main(String[] args) {
         MainView view = MainView.getInstance();
+        view.setVisible(true);
     }
 }
