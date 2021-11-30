@@ -77,6 +77,11 @@ public class DistributorView extends JFrame {
 	
 	public void deliver() {
 		System.out.println("Deliver button has been clicked.");
+		if (listOrders.isSelectionEmpty()) {
+			System.out.println("Not order selected.");
+			return;
+		}
+
 		Order order = listOrders.getSelectedValue();
 		OrderCollection.getInstance();
 		OrderCollection.getCollection().remove(order);
@@ -89,6 +94,11 @@ public class DistributorView extends JFrame {
 	
 	public void cancel() {
 		System.out.println("Cancel button has been clicked.");
+		if (listOrders.isSelectionEmpty()) {
+			System.out.println("Not order selected.");
+			return;
+		}
+
 		Order order = listOrders.getSelectedValue();
 		OrderCollection.getInstance();
 		OrderCollection.getCollection().remove(order);
