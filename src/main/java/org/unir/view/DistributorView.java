@@ -1,9 +1,6 @@
 package org.unir.view;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.ComponentOrientation;
 
 import javax.swing.JFrame;
@@ -27,6 +24,8 @@ public class DistributorView extends JFrame {
 	private static DistributorView instance;
 	private JPanel contentPane;
     JList <Order> listOrders;
+    private JButton deliverBtn;
+    private JButton cancelBtn;
 
 	public DistributorView() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -50,33 +49,17 @@ public class DistributorView extends JFrame {
         panelActionButtons.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		panelForm.add(panelActionButtons);
 		
-		JButton deliver = new JButton(JBUTTON_DELIVER);
-		deliver.addActionListener( e -> {
-				System.out.println("Deliver button has been clicked.");
-				Order order = listOrders.getSelectedValue();
-				OrderCollection.getInstance();
-				OrderCollection.getCollection().remove(order);
-				System.out.println(String.format(
-						"The order %s has been delivered.",
-						order.toString()
-				));
-				loadData();
+		deliverBtn = new JButton(JBUTTON_DELIVER);
+		deliverBtn.addActionListener( e -> {
+			deliver();
 		});
-		panelActionButtons.add(deliver);
+		panelActionButtons.add(deliverBtn);
 		
-		JButton cancel = new JButton(JBUTTON_CANCEL);
-		cancel.addActionListener( e -> {
-				System.out.println("Cancel button has been clicked.");
-				Order order = listOrders.getSelectedValue();
-				OrderCollection.getInstance();
-				OrderCollection.getCollection().remove(order);
-				System.out.println(String.format(
-						"The order %s has been cancelled.",
-						order.toString()
-				));
-				loadData();
+		cancelBtn = new JButton(JBUTTON_CANCEL);
+		cancelBtn.addActionListener( e -> {
+			cancel();
 		});
-		panelActionButtons.add(cancel);
+		panelActionButtons.add(cancelBtn);
 		
 		JPanel panelNav = new JPanel();
 		contentPane.add(panelNav, BorderLayout.SOUTH);
@@ -90,6 +73,30 @@ public class DistributorView extends JFrame {
 		});
 		panelNav.add(back);
 		this.loadData();
+	}
+	
+	public void deliver() {
+		System.out.println("Deliver button has been clicked.");
+		Order order = listOrders.getSelectedValue();
+		OrderCollection.getInstance();
+		OrderCollection.getCollection().remove(order);
+		System.out.println(String.format(
+				"The order %s has been delivered.",
+				order.toString()
+		));
+		loadData();
+	}
+	
+	public void cancel() {
+		System.out.println("Cancel button has been clicked.");
+		Order order = listOrders.getSelectedValue();
+		OrderCollection.getInstance();
+		OrderCollection.getCollection().remove(order);
+		System.out.println(String.format(
+				"The order %s has been cancelled.",
+				order.toString()
+		));
+		loadData();
 	}
 	
 	public static DistributorView getInstance () {

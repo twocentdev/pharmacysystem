@@ -29,28 +29,31 @@ public class MainView extends JFrame {
 		contentPane.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JButton pharmacyButton = new JButton(JBUTTON_PHARMACY);
-		pharmacyButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				System.out.println("Pharmacy button has been clicked.");
-				setVisible(false);
-				PharmacyView pharmacyView = PharmacyView.getInstance();
-				pharmacyView.setVisible(true);
-			}
+		pharmacyButton.addActionListener(e -> {
+			goToPharmacyView();
 		});
 		contentPane.add(pharmacyButton);
 		
 		JButton distributorButton = new JButton(JBUTTON_DISTRIBUTOR);
-		distributorButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				System.out.println("Distributor button has been clicked.");
-				setVisible(false);
-				DistributorView distributorView = DistributorView.getInstance();
-				distributorView.setVisible(true);
-			}
+		distributorButton.addActionListener(e -> {
+			goToDistributorView();
 		});
 		contentPane.add(distributorButton);
+	}
+	
+	public void goToPharmacyView() {
+		System.out.println("Pharmacy button has been clicked.");
+		setVisible(false);
+		PharmacyView pharmacyView = PharmacyView.getInstance();
+		pharmacyView.setVisible(true);
+	}
+	
+	
+	public void goToDistributorView() {
+		System.out.println("Distributor button has been clicked.");
+		setVisible(false);
+		DistributorView distributorView = DistributorView.getInstance();
+		distributorView.setVisible(true);
 	}
 
 	public static MainView getInstance () {

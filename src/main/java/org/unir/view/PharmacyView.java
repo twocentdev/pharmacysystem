@@ -15,8 +15,6 @@ import org.unir.util.Util;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +23,6 @@ import javax.swing.ButtonGroup;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
-import java.awt.event.ActionListener;
 
 public class PharmacyView extends JFrame {
 
@@ -45,6 +42,13 @@ public class PharmacyView extends JFrame {
 	private JPanel contentPane;
 	private JTextField textFieldName;
 	private JTextField textFieldAmount;
+	private JComboBox<String> fieldType;
+	private ButtonGroup fieldDistributor;
+	private JCheckBox direction1;
+    private JCheckBox direction2;
+    private JButton cancelBtn;
+    private JButton submitBtn;
+
 
 	/**
 	 * Create the frame.
@@ -82,7 +86,7 @@ public class PharmacyView extends JFrame {
 		JLabel labelFieldType = new JLabel(JLABEL_FIELD_TYPE);
 		panelFieldType.add(labelFieldType);
 		
-		JComboBox fieldType = new JComboBox();
+		fieldType = new JComboBox<String>();
 		panelFieldType.add(fieldType);
 		for (MedicineEnum medicine: MedicineEnum.values()) {
             fieldType.addItem(medicine.getMedicineName());
@@ -103,7 +107,7 @@ public class PharmacyView extends JFrame {
 		
 		JLabel labelFieldDistributor = new JLabel(JLABEL_FIELD_DISTRIBUTOR);
 		panelFieldDistributor.add(labelFieldDistributor);
-        ButtonGroup fieldDistributor = new ButtonGroup();
+        fieldDistributor = new ButtonGroup();
         for (DistributorEnum distributor: DistributorEnum.values()) {
             JRadioButton radioButton = new JRadioButton(distributor.getDistributorName());
             radioButton.setActionCommand(distributor.getDistributorName());
@@ -116,71 +120,84 @@ public class PharmacyView extends JFrame {
 		
 		JLabel labelFieldDirections = new JLabel(JLABEL_FIELD_DIRECTIONS);
 		panelFieldDirections.add(labelFieldDirections);
-        JCheckBox direction1 = new JCheckBox(JLABEL_DIR_1);
-        JCheckBox direction2 = new JCheckBox(JLABEL_DIR_2);
+        direction1 = new JCheckBox(JLABEL_DIR_1);
+        direction2 = new JCheckBox(JLABEL_DIR_2);
         panelFieldDirections.add(direction1);
         panelFieldDirections.add(direction2);
 		
 		JPanel panelActions = new JPanel();
 		panelMain.add(panelActions);
 		
-		JButton cancel = new JButton(JBUTTON_CLEAR);
-		
-		JButton submit = new JButton(JBUTTON_SUBMIT);
-		submit.addActionListener( e -> {
-	            List<String> directions = new ArrayList<String> ();
-	            if (direction1.isSelected()) {
-	                directions.add(direction1.getText());
-	            }
-	            if (direction2.isSelected()) {
-	                directions.add(direction2.getText());
-	            }
-	            OrderFactory factory = OrderFactory.getInstance();
-	            try {
-	                Order order = factory.create(
-	                    (textFieldName.getText() == null) ? null : textFieldName.getText(),
-	                    (fieldType.getSelectedItem() == null)? null : fieldType.getSelectedItem().toString(),
-	                    Util.parseInt(textFieldAmount.getText()),
-	                    (fieldDistributor.getSelection() == null)? null : fieldDistributor.getSelection().getActionCommand(),
-	                    directions
-	                );
-	                System.out.println("New order has been created.");
-	                System.out.println(order);
-	                cancel.doClick();
-	            } catch (IllegalArgumentException ex) {
-	            	System.out.println("An error occurred while creating the order.");
-	                System.out.println(ex.getMessage());
-	            }
+		cancelBtn = new JButton(JBUTTON_CLEAR);
+		cancelBtn.addActionListener(e -> {
+			cancel();
 		});
-		panelActions.add(submit);
 		
-		cancel.addActionListener(e -> {
-			System.out.println("Clear button has been clicked.");
-			textFieldName.setText(null);
-	        fieldType.setSelectedIndex(0);
-	        textFieldAmount.setText(null);
-	        fieldDistributor.clearSelection();
-	        direction1.setSelected(false);
-	        direction2.setSelected(false);
+		submitBtn = new JButton(JBUTTON_SUBMIT);
+		submitBtn.addActionListener( e -> {
+			submit(); 
 		});
-		panelActions.add(cancel);
+		
+		panelActions.add(submitBtn);
+		panelActions.add(cancelBtn);
 		
 		JPanel panelNav = new JPanel();
 		contentPane.add(panelNav, BorderLayout.SOUTH);
 		
 		JButton back = new JButton(JBUTTON_BACK);
-		back.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				System.out.println("Back button has been clicked.");
-				setVisible(false);
-				MainView view = MainView.getInstance();
-				view.setVisible(true);
-			}
+		back.addActionListener(e -> {
+			goBack();
 		});
 		panelNav.add(back);
 	}
 	
+	private void clearForm() {
+		textFieldName.setText(null);
+        fieldType.setSelectedIndex(0);
+        textFieldAmount.setText(null);
+        fieldDistributor.clearSelection();
+        direction1.setSelected(false);
+        direction2.setSelected(false);
+	}
+	
+	public void cancel() {
+		System.out.println("Clear button has been clicked.");
+		clearForm();
+	}
+	
+	public void submit() {
+		List<String> directions = new ArrayList<String> ();
+        if (direction1.isSelected()) {
+            directions.add(direction1.getText());
+        }
+        if (direction2.isSelected()) {
+            directions.add(direction2.getText());
+        }
+        OrderFactory factory = OrderFactory.getInstance();
+        try {
+            Order order = factory.create(
+                (textFieldName.getText() == null) ? null : textFieldName.getText(),
+                (fieldType.getSelectedItem() == null)? null : fieldType.getSelectedItem().toString(),
+                Util.parseInt(textFieldAmount.getText()),
+                (fieldDistributor.getSelection() == null)? null : fieldDistributor.getSelection().getActionCommand(),
+                directions
+            );
+            System.out.println("New order has been created.");
+            System.out.println(order);
+            clearForm();
+        } catch (IllegalArgumentException ex) {
+        	System.out.println("An error occurred while creating the order.");
+            System.out.println(ex.getMessage());
+        }
+	}
+	
+	public void goBack() {
+		System.out.println("Back button has been clicked.");
+		setVisible(false);
+		MainView view = MainView.getInstance();
+		view.setVisible(true);
+	}
+ 	
 	public static PharmacyView getInstance () {
 		if (instance == null) {
 			instance = new PharmacyView ();
