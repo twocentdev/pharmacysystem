@@ -108,6 +108,11 @@ public class DistributorView extends JFrame {
 	
 	private void loadData() {
         OrderCollection.getInstance();
+        
+        boolean orderListNotEmpty = !OrderCollection.getCollection().isEmpty();
+        cancelBtn.setEnabled(orderListNotEmpty);
+        deliverBtn.setEnabled(orderListNotEmpty);
+        
         DefaultListModel<Order> model = new DefaultListModel<Order>();
         for (Order order: OrderCollection.getCollection()) {
             model.add(
