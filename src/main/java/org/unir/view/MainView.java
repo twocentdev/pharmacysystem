@@ -34,7 +34,7 @@ public class MainView extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				System.out.println("Pharmacy button has been clicked.");
 				setVisible(false);
-				PharmacyView pharmacyView = new PharmacyView();
+				PharmacyView pharmacyView = PharmacyView.getInstance();
 				pharmacyView.setVisible(true);
 			}
 		});
@@ -45,6 +45,9 @@ public class MainView extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.out.println("Distributor button has been clicked.");
+				setVisible(false);
+				DistributorView distributorView = DistributorView.getInstance();
+				distributorView.setVisible(true);
 			}
 		});
 		contentPane.add(distributorButton);

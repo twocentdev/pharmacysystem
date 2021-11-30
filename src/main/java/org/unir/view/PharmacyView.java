@@ -25,6 +25,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+import java.awt.event.ActionListener;
 
 public class PharmacyView extends JFrame {
 
@@ -126,9 +127,7 @@ public class PharmacyView extends JFrame {
 		JButton cancel = new JButton(JBUTTON_CLEAR);
 		
 		JButton submit = new JButton(JBUTTON_SUBMIT);
-		submit.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
+		submit.addActionListener( e -> {
 	            List<String> directions = new ArrayList<String> ();
 	            if (direction1.isSelected()) {
 	                directions.add(direction1.getText());
@@ -147,25 +146,22 @@ public class PharmacyView extends JFrame {
 	                );
 	                System.out.println("New order has been created.");
 	                System.out.println(order);
+	                cancel.doClick();
 	            } catch (IllegalArgumentException ex) {
 	            	System.out.println("An error occurred while creating the order.");
 	                System.out.println(ex.getMessage());
 	            }
-			}
 		});
 		panelActions.add(submit);
 		
-		cancel.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				System.out.println("Clear button has been clicked.");
-				textFieldName.setText(null);
-	            fieldType.setSelectedIndex(0);
-	            textFieldAmount.setText(null);
-	            fieldDistributor.clearSelection();
-	            direction1.setSelected(false);
-	            direction2.setSelected(false);
-			}
+		cancel.addActionListener(e -> {
+			System.out.println("Clear button has been clicked.");
+			textFieldName.setText(null);
+	        fieldType.setSelectedIndex(0);
+	        textFieldAmount.setText(null);
+	        fieldDistributor.clearSelection();
+	        direction1.setSelected(false);
+	        direction2.setSelected(false);
 		});
 		panelActions.add(cancel);
 		
