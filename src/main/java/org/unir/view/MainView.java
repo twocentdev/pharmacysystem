@@ -11,12 +11,19 @@ package org.unir.view;
  */
 public class MainView extends javax.swing.JFrame {
 
+    private final String JFRAME_TITLE = "Pharmacy App";
+    private final String JBUTTON_PHARMACY = "Pharmacy";
+    private final String JBUTTON_DELIVERY = "Delivery";
+    
     private static MainView instance;
     /**
      * Creates new form MainView
      */
     public MainView() {
         initComponents();
+        if (instance == null) {
+            instance = this;
+        }
     }
 
     /**
@@ -33,8 +40,9 @@ public class MainView extends javax.swing.JFrame {
         distributorView = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle(JFRAME_TITLE);
 
-        pharmacyView.setText("jButton1");
+        pharmacyView.setText(JBUTTON_PHARMACY);
         pharmacyView.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pharmacyViewActionPerformed(evt);
@@ -42,7 +50,12 @@ public class MainView extends javax.swing.JFrame {
         });
         panelMain.add(pharmacyView);
 
-        distributorView.setText("jButton1");
+        distributorView.setText(JBUTTON_DELIVERY);
+        distributorView.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                distributorViewActionPerformed(evt);
+            }
+        });
         panelMain.add(distributorView);
 
         getContentPane().add(panelMain, java.awt.BorderLayout.CENTER);
@@ -53,42 +66,18 @@ public class MainView extends javax.swing.JFrame {
     private void pharmacyViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pharmacyViewActionPerformed
         // TODO add your handling code here:
         System.out.println("PharmacyView button has been clicked.");
+        PharmacyView pharmacyView = PharmacyView.getInstance();
+        pharmacyView.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_pharmacyViewActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MainView().setVisible(true);
-            }
-        });
-    }
+    private void distributorViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_distributorViewActionPerformed
+        System.out.println("Delivery button has been clicked.");
+        DistributorView distributorView = DistributorView.getInstance();
+        distributorView.loadData();
+        distributorView.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_distributorViewActionPerformed
     
     public static MainView getInstance() {
         if (instance == null) {
